@@ -1,0 +1,106 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Bdd.WebApi/Bdd.WebApi.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/src/Bdd.WebApi/Bdd.WebApi.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/src/Bdd.WebApi/Bdd.WebApi.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Run Test Scenario",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "-l",
+                "console;verbosity=detailed",
+                "--filter",
+                "(FeatureTitle~${input:test_feature}) & (Description~${input:test_scenario})",
+                "${workspaceFolder}/src/Bdd.WebApi.IntegrationTests/Bdd.WebApi.IntegrationTests.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Run All Test",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "-l",
+                "console;verbosity=normal",
+                "${workspaceFolder}/src/Bdd.WebApi.IntegrationTests/Bdd.WebApi.IntegrationTests.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Debug Test Scenario",
+            "type": "process",
+            "isBackground": true,
+            "command": "dotnet",
+            "args": [
+                "test",
+                "-l",
+                "console;verbosity=detailed",
+                "--filter",
+                "(FeatureTitle~${input:test_feature}) & (Description~${input:test_scenario})",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/src/Bdd.WebApi.IntegrationTests",
+                "env": {
+                    "VSTEST_HOST_DEBUG": "1"
+                },
+            },
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "test_scenario",
+            "type": "promptString",
+            "description": "Scenario"
+        },
+        {
+            "id": "test_feature",
+            "type": "promptString",
+            "description": "Feature"
+        }
+    ]
+}

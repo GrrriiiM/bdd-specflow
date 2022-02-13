@@ -1,0 +1,6 @@
+{
+    "dotnet-test-explorer.testProjectPath": "**/*Tests.@(csproj|vbproj|fsproj)",
+    "cucumberautocomplete.steps": [
+        "/**/Steps/**/*.cs"
+    ],
+}
